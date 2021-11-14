@@ -10,6 +10,13 @@ export async function onRequestPost({ request, env }) {
     return new Response('Make sure the fields are set!', { status: 400 });
   }
 
+  try {
+    console.log(env);
+    console.log(HCAPTCHA_SECRET)
+  } catch(e) {
+    return new Response(JSON.stringify({ message: e.message, stack: e.stack }), { status: 500 });
+  }
+
   // Validate the captcha
   const captchaVerified = await verifyHcaptcha(
     captcha,
@@ -18,7 +25,7 @@ export async function onRequestPost({ request, env }) {
     env.HCAPTCHA_SITE_KEY
   );
   if (!captchaVerified) {
-    return new Response('Invalid captcha', { status: 400 });
+    return new Response('Invalid captcha! >:(', { status: 400 });
   }
 
   // Send message :)
@@ -26,7 +33,7 @@ export async function onRequestPost({ request, env }) {
   await sendDiscordMessage(name, message, env.DISCORD_WEBHOOK_URL);
   // await sendEmailWithSendGrid();
 
-  return new Response();
+  return new Response('Thanks for contacting me! :)');
 }
 
 // Make sure to set the "HCAPTCHA_SECRET" & "HCAPTCHA_SITE_KEY" variable
@@ -43,6 +50,7 @@ async function verifyHcaptcha(response, ip, secret, siteKey) {
   });
 
   const json = await res.json();
+  console.log(json);
   return json.success;
 }
 
@@ -64,11 +72,11 @@ async function sendDiscordMessage(name, message, webhookUrl) {
         fields: [
           {
             name: 'Name',
-            value: details.name,
+            value: name,
           },
           {
             name: 'Message',
-            value: details.message,
+            value: message,
           }
         ]
       }]
