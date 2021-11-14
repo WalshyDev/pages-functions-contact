@@ -1,19 +1,18 @@
 export async function onRequestPost({ request, env }) {
-  let obj;
-  try {
-    obj = await request.json();
-  } catch(e) {
-    return new Response('Invalid JSON body!');
-  }
+  const data = await request.formData();
+
+  const name = data.get('name');
+  const message = data.get('message');
+  const captcha = data.get('h-captcha-response');
 
   // Validate the JSON
-  if (!obj.name || !obj.message || !obj.captcha) {
-    return new Response('Invalid body', { status: 400 });
+  if (!name || !message || !captcha) {
+    return new Response('Make sure the fields are set!', { status: 400 });
   }
 
   // Validate the captcha
   const captchaVerified = await verifyHcaptcha(
-    obj.captcha,
+    captcha,
     request.headers.get('cf-connecting-ip'),
     env.HCAPTCHA_SECRET,
     env.HCAPTCHA_SITE_KEY
@@ -24,7 +23,7 @@ export async function onRequestPost({ request, env }) {
 
   // Send message :)
   // Just remove the comment from whichever one you want
-  await sendDiscordMessage(obj, env.DISCORD_WEBHOOK_URL);
+  await sendDiscordMessage(name, message, env.DISCORD_WEBHOOK_URL);
   // await sendEmailWithSendGrid();
 
   return new Response();
@@ -51,7 +50,7 @@ async function verifyHcaptcha(response, ip, secret, siteKey) {
 // Refer to <> for help
 // ---
 // This function will send a Discord message to the supplied webhook URL
-async function sendDiscordMessage(details, webhookUrl) {
+async function sendDiscordMessage(name, message, webhookUrl) {
   await fetch(webhookUrl, {
     method: 'POST',
     headers: {
