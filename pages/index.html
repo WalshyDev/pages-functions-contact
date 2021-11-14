@@ -8,27 +8,20 @@
 
     <body>
         <h1>Welcome to Walshy's cool website</h1>
-        
-        <div class="contact-me">
-            <div>
-            <label for="name">Name:</label>
-            <input id="name">
-            </div>
 
+        <form method="post" action="/api/contact">
             <div>
-                <label for="message">Message:</label>
-                <textarea id="message" cols="50" rows="4" maxlength="2000" wrap="soft"></textarea>
+                <label for="name">Name</label>
+                <input name="name" required />
+            </div>
+            <div>
+                <label for="message">Message</label>
+                <textarea name="message" cols="50" rows="4" maxlength="2000" wrap="soft" required></textarea>
             </div>
 
             <div id="hcaptcha" class="h-captcha" data-sitekey="ddc501d7-0383-48a4-b862-e9c78ba9d1ed" data-theme="dark"></div>
 
-            <diV>
-                <span id="error"></span>
-            </diV>
-
-            <button type="submit" id="submit">Send</button>
-        </div>
+            <button type="submit">Send</button>
+        </form>
     </body>
-
-    <script src="/script.js"></script>
 </html>

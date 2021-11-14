@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # FILL IN THESE VALUES (refer to: <Blog>)
-# Also, do NOT commit this file!
+# Do NOT commit this file!
 ACCOUNT_ID=''
 ACCOUNT_TOKEN=''
 PAGES_FUNCTIONS_NAME=''
