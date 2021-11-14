@@ -1,4 +1,12 @@
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(ctx) {
+  try {
+    return await handleRequest(ctx);
+  } catch(e) {
+    return new Response(`${e.message}\n${e.stack}`, { status: 500 }); 
+  }
+}
+
+async function handleRequest({ request, env }) {
   const data = await request.formData();
 
   const name = data.get('name');
@@ -10,11 +18,8 @@ export async function onRequestPost({ request, env }) {
     return new Response('Make sure the fields are set!', { status: 400 });
   }
 
-  try {
-    console.log(env);
-    console.log(HCAPTCHA_SECRET)
-  } catch(e) {
-    return new Response(JSON.stringify({ message: e.message, stack: e.stack, env, }), { status: 500 });
+  if (false) {
+    return new Response(JSON.stringify({ env, }), { status: 500 });
   }
 
   // Validate the captcha
