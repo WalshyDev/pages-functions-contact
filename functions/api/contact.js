@@ -14,7 +14,7 @@ export async function onRequestPost({ request, env }) {
     console.log(env);
     console.log(HCAPTCHA_SECRET)
   } catch(e) {
-    return new Response(JSON.stringify({ message: e.message, stack: e.stack }), { status: 500 });
+    return new Response(JSON.stringify({ message: e.message, stack: e.stack, env, }), { status: 500 });
   }
 
   // Validate the captcha
