@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Walshy's cool website</title>
+
+        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    </head>
+
+    <body>
+        <h1>Welcome to Walshy's cool website</h1>
+        
+        <div class="contact-me">
+            <div>
+            <label for="name">Name:</label>
+            <input id="name">
+            </div>
+
+            <div>
+                <label for="message">Message:</label>
+                <textarea id="message" cols="50" rows="4" maxlength="2000" wrap="soft"></textarea>
+            </div>
+
+            <div id="hcaptcha" class="h-captcha" data-sitekey="ddc501d7-0383-48a4-b862-e9c78ba9d1ed" data-theme="dark"></div>
+
+            <diV>
+                <span id="error"></span>
+            </diV>
+
+            <button type="submit" id="submit">Send</button>
+        </div>
+    </body>
+
+    <script src="/script.js"></script>
+</html>

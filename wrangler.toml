@@ -1,0 +1,21 @@
+name = "pages-worker-contact"
+type = "javascript"
+
+# Fill in these!
+# route = ""
+# zone_id = ""
+# account_id = ""
+
+# Examples:
+route = "pages-contact.walshy.dev/contact"
+zone_id = "8d0c8239f88f98a8cb82ec7bb29b8556"
+account_id = "4e599df4216133509abaac54b109a647"
+
+compatibility_flags = []
+compatibility_date = "2021-11-12"
+workers_dev = true
+
+[build.upload]
+format = "modules"
+dir = "./worker"
+main = "./index.mjs"
