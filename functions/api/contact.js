@@ -9,6 +9,7 @@ export async function onRequestPost(ctx) {
 async function handleRequest({ request, env }) {
   const data = await request.formData();
 
+  // Grab the form fields
   const name = data.get('name');
   const message = data.get('message');
   const captcha = data.get('h-captcha-response');
@@ -95,4 +96,4 @@ async function sendDiscordMessage(name, message, webhookUrl) {
 // This function will send an email through SendGrid
 async function sendEmailWithSendGrid(details) {
   // TODO
-}
+} 
